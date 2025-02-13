@@ -259,8 +259,47 @@ document.getElementById('settingPrompt').addEventListener('click', () => {
     console.log('Changer la police');
 });
 
-document.getElementById('settingModels').addEventListener('click', () => {
-    console.log('Changer la langue');
-});
+function toggleModelsMenu() {
+    const modelsMenu = document.getElementById("modelsMenu");
+
+    if (!modelsMenu) {
+        console.error("Le menu des modèles n'existe pas.");
+        return;
+    }
+
+    // Si le menu est déjà affiché, on le masque
+    if (modelsMenu.classList.contains("active")) {
+        modelsMenu.classList.remove("active");
+        return;
+    }
+
+    modelsMenu.innerHTML = "<p>Chargement...</p>"; // Indicateur de chargement
+    modelsMenu.classList.add("active"); // Afficher le menu
+
+    // Requête pour récupérer les modèles d'Ollama
+    fetch("http://localhost:11434/api/tags")
+        .then(response => response.json())
+        .then(data => {
+            modelsMenu.innerHTML = ""; // Nettoyer le menu
+
+            data.forEach(modelName => {
+                const button = document.createElement("button");
+                button.textContent = modelName;
+                button.onclick = () => {
+                    alert(`Modèle sélectionné : ${modelName}`);
+                    modelsMenu.classList.remove("active"); // Fermer après sélection
+                };
+                modelsMenu.appendChild(button);
+            });
+        })
+        .catch(error => {
+            modelsMenu.innerHTML = "<p>Erreur de chargement</p>";
+            console.error("Erreur lors de la récupération des modèles :", error);
+        });
+}
+
+// Ajouter l'événement au clic sur le bouton "Modeles"
+document.getElementById("settingModels").addEventListener("click", toggleModelsMenu);
+
 
 

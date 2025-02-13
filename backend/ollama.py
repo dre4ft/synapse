@@ -13,7 +13,7 @@ class OllamaAPIException(Exception):
 
 
 def list_ollama_models():
-    url = "http://localhost:11434/api/tags"
+    url = "http://host.docker.internal:11434/api/tags"
     
     try:
         response = requests.get(url)
