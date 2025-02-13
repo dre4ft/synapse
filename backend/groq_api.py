@@ -4,13 +4,23 @@ from groq import Groq
 
 # Initialisation du client Groq
 client = Groq(
-    api_key="YOUR_API_KEY"
+    api_key="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"
 )
 
 class GroqAPIException(Exception):
     """Exception personnalisée pour les erreurs liées à l'API Groq."""
     def __init__(self, detail: str):
         self.detail = detail
+
+def list_groq_models():
+
+    try:
+        response = client.models.list()
+        return [model.id for model in response.data]  # Récupère uniquement les IDs des modèles
+    
+    except Exception as e:
+        # En cas d'erreur avec Groq, on lance une exception personnalisée
+        raise GroqAPIException(f"Erreur avec l'API Groq : {str(e)}")
 
 def get_groq_response(user_message: str):
     """

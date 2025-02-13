@@ -11,6 +11,20 @@ class OllamaAPIException(Exception):
     def __init__(self, detail: str):
         self.detail = detail
 
+def list_ollama_models():
+    url = "http://localhost:11434/api/tags"
+    
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Lève une exception si le statut HTTP n'est pas 200
+        
+        models = response.json().get("models", [])
+        return [model["name"] for model in models]
+    
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erreur lors de la récupération des modèles : {e}")
+        return []
+    
 def get_ollama_response(user_message: str):
     """
     Envoie une requête à l'API Ollama pour obtenir une réponse en streaming.
