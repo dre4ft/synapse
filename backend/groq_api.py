@@ -4,7 +4,7 @@ from groq import Groq
 
 # Initialisation du client Groq
 client = Groq(
-    api_key="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"
+    api_key="YOUR_API_KEY"
 )
 
 class GroqAPIException(Exception):
