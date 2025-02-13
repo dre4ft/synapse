@@ -261,7 +261,9 @@ document.getElementById('settingPrompt').addEventListener('click', () => {
 
 function toggleModelsMenu() {
     const modelsMenu = document.getElementById("modelsMenu");
+    const settingModelsButton = document.getElementById("settingModels");
 
+    // Vérifier que le menu existe avant d'essayer de l'afficher
     if (!modelsMenu) {
         console.error("Le menu des modèles n'existe pas.");
         return;
@@ -273,24 +275,30 @@ function toggleModelsMenu() {
         return;
     }
 
-    modelsMenu.innerHTML = "<p>Chargement...</p>"; // Indicateur de chargement
+    // Afficher un indicateur de chargement pendant que la liste des modèles se charge
+    modelsMenu.innerHTML = "<p>Chargement...</p>";
     modelsMenu.classList.add("active"); // Afficher le menu
 
     // Requête pour récupérer les modèles d'Ollama
-    fetch("http://localhost:11434/api/tags")
+    fetch("http://localhost:6080/models/")
         .then(response => response.json())
         .then(data => {
-            modelsMenu.innerHTML = ""; // Nettoyer le menu
+            modelsMenu.innerHTML = ""; // Nettoyer le menu avant d'ajouter les nouveaux boutons
 
-            data.forEach(modelName => {
-                const button = document.createElement("button");
-                button.textContent = modelName;
-                button.onclick = () => {
-                    alert(`Modèle sélectionné : ${modelName}`);
-                    modelsMenu.classList.remove("active"); // Fermer après sélection
-                };
-                modelsMenu.appendChild(button);
-            });
+            if (Array.isArray(data) && data.length > 0) {
+                // Si la réponse est un tableau de modèles, ajoute un bouton pour chaque modèle
+                data.forEach(model => {
+                    const button = document.createElement("button");
+                    button.textContent = model;  // Le nom du modèle (chaîne de caractères)
+                    button.onclick = () => {
+                        alert(`Modèle sélectionné : ${model}`);
+                        modelsMenu.classList.remove("active"); // Fermer le menu après la sélection
+                    };
+                    modelsMenu.appendChild(button);
+                });
+            } else {
+                modelsMenu.innerHTML = "<p>Aucun modèle trouvé.</p>";
+            }
         })
         .catch(error => {
             modelsMenu.innerHTML = "<p>Erreur de chargement</p>";
@@ -301,5 +309,13 @@ function toggleModelsMenu() {
 // Ajouter l'événement au clic sur le bouton "Modeles"
 document.getElementById("settingModels").addEventListener("click", toggleModelsMenu);
 
+// Fermer le menu si on clique à l'extérieur
+document.addEventListener("click", function(event) {
+    const modelsMenu = document.getElementById("modelsMenu");
+    const settingModelsButton = document.getElementById("settingModels");
 
-
+    // Vérifier si le clic est en dehors du bouton et du menu des modèles
+    if (!settingModelsButton.contains(event.target) && !modelsMenu.contains(event.target)) {
+        modelsMenu.classList.remove("active"); // Fermer le menu
+    }
+});

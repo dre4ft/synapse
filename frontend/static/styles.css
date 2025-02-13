@@ -199,40 +199,33 @@ body {
     position: relative;
 }
 
-/* Menu dynamique des modèles */
+/* Style pour le menu des modèles, à droite du bouton */
 .models-menu {
-    display: none;
     position: absolute;
-    left: 0;
-    bottom: calc(100% + 10px);
-    background: rgba(45, 45, 45, 0.95); /* Fond semi-transparent comme le menu settings */
+    bottom: 100%;/* Positionner à la même hauteur que le bouton */
+    left: 100%; /* Le menu se déplace à droite du bouton */
+    margin-left: 10px; /* Un petit espace entre le bouton et le menu */
+    background: rgba(45, 45, 45, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
-    padding: 10px;
-    width: 180px;
+    padding: 8px 0;
+    width: 200px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
     transition: all 0.2s ease;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Affichage du menu lorsqu'il est actif */
-.models-menu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* Triangle pointant vers le bouton */
+/* Triangle pointant vers le bouton (déplacé pour pointer vers la droite) */
 .models-menu::after {
     content: '';
     position: absolute;
-    bottom: -8px;
-    left: 15px;
+    bottom: 10px; /* Positionner le triangle près du bouton */
+    left: -8px; /* Pointer vers le bouton à gauche */
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
@@ -240,25 +233,43 @@ body {
     border-top: 8px solid rgba(45, 45, 45, 0.95);
 }
 
-/* Style des boutons dans le menu */
+/* Rendre le menu visible lorsqu'il est actif */
+.models-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Rendre les boutons du menu cliquables */
 .models-menu button {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     width: 100%;
-    padding: 8px 12px;
+    padding: 12px 16px;
     text-align: left;
     background: none;
     border: none;
-    color: #e0e0e0; /* Couleur du texte adaptée */
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Courier New', Courier, monospace;
-    border-radius: 5px;
+    box-sizing: border-box;
     transition: all 0.2s ease;
+    line-height: 1;
+    white-space: nowrap;
+    font-family: monospace;
+    letter-spacing: 0.5px;
 }
 
-/* Effet au survol des boutons */
 .models-menu button:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Conteneur du bouton settings pour positionner correctement le menu */
+.settings-container {
+    position: relative;
+    display: inline-block;
 }
 
 
