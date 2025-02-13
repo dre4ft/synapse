@@ -11,6 +11,7 @@ class OllamaAPIException(Exception):
     def __init__(self, detail: str):
         self.detail = detail
 
+
 def list_ollama_models():
     url = "http://localhost:11434/api/tags"
     
@@ -22,10 +23,14 @@ def list_ollama_models():
         return [model["name"] for model in models]
     
     except requests.exceptions.RequestException as e:
-        print(f"❌ Erreur lors de la récupération des modèles : {e}")
-        return []
+        # En cas de problème réseau ou autre erreur de requête
+        raise OllamaAPIException(f"Erreur de communication avec l'API Ollama : {str(e)}")
     
-def get_ollama_response(user_message: str):
+def update_model(new_model : str):
+    MODEL = new_model
+
+
+def get_ollama_response(user_message: str, model_used = MODEL ):
     """
     Envoie une requête à l'API Ollama pour obtenir une réponse en streaming.
     Si un problème survient, une exception personnalisée est levée.
@@ -35,7 +40,7 @@ def get_ollama_response(user_message: str):
 
     # Construction du message au format Ollama
     data = {
-        "model": MODEL,
+        "model": model_used,
         "messages": [{"role": "user", "content": user_message}],
         "stream": True
     }

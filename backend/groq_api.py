@@ -4,8 +4,10 @@ from groq import Groq
 
 # Initialisation du client Groq
 client = Groq(
-    api_key="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"
+    api_key="TODO"
 )
+
+MODEL = "llama-3.3-70b-versatile"
 
 class GroqAPIException(Exception):
     """Exception personnalisée pour les erreurs liées à l'API Groq."""
@@ -22,7 +24,10 @@ def list_groq_models():
         # En cas d'erreur avec Groq, on lance une exception personnalisée
         raise GroqAPIException(f"Erreur avec l'API Groq : {str(e)}")
 
-def get_groq_response(user_message: str):
+def update_model(new_model : str):
+    MODEL = new_model
+
+def get_groq_response(user_message: str,model_used = MODEL):
     """
     Envoie une requête à l'API Groq pour obtenir une réponse en streaming.
     Si un problème survient, une exception personnalisée est levée.
@@ -33,7 +38,7 @@ def get_groq_response(user_message: str):
     try:
         # Construction de la requête pour Groq
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",  # Remplace avec ton modèle Groq spécifique
+            model=model_used,  # Remplace avec ton modèle Groq spécifique
             messages=[{"role": "user", "content": user_message}],
             temperature=1,
             max_completion_tokens=9140,
