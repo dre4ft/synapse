@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from ollama import get_ollama_response, OllamaAPIException  
+from ollama import get_ollama_response, OllamaAPIException , list_ollama_models,update_model
 import json
-from groq_api import GroqAPIException, get_groq_response
+from groq_api import GroqAPIException, get_groq_response , list_groq_models,update_model
 import handle_history  # Import du module d'historique
 
 app = FastAPI()
@@ -21,6 +21,16 @@ def change_mode(request_data: dict):
         connectionSetting = True
 
     return {"message": "Mode mis à jour avec succès", "new_mode": connectionSetting}
+
+@app.get("/models/")
+def return_models():
+    if connectionSetting:
+        models = list_ollama_models()
+    else :
+        models = list_groq_models()
+    return models
+
+
 
 @app.get("/")
 async def serve_index():

@@ -94,8 +94,8 @@ def update_history(user_input, assistant_reply, get_summary_function):
     if len(history) > MAX_CONTEXT_MESSAGES:
         # Demander à l'IA de faire un résumé
         summary_request = "Fais un résumé concis de cette conversation :\n" + "\n".join(
-            [msg["content"] for msg in history[:-MAX_CONTEXT_MESSAGES]]
-        )
+            [" ".join(msg["content"]) if isinstance(msg["content"], list) else msg["content"] 
+            for msg in history[:-MAX_CONTEXT_MESSAGES]])
         summary = get_summary_function(summary_request)
 
         # Mettre à jour le fichier contexte
