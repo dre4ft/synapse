@@ -8,7 +8,7 @@ const settingsMenu = document.getElementById('settingsMenu');
 const connectionBtn = document.getElementById('settingConnection')
 
 let abortController = null; // Variable pour contrôler l'annulation de la requête
-
+let connexion_setting = 0 ; 
 // Fonction pour ajouter un message dans la conversation
 function addMessage(content, isUser = false) {
     const messageElement = document.createElement("div");
@@ -104,7 +104,8 @@ function sendMessage() {
             while (botMessageElement.firstChild) {
                 botMessageElement.removeChild(botMessageElement.firstChild);
             }
-            botMessageElement.innerHTML = "🤖 Ollama : ";
+            if (connexion_setting == 0 ){botMessageElement.innerHTML = "🤖 Ollama : ";}
+            else {botMessageElement.innerHTML = "🤖 Groq: ";}
 
             // Séparons la réponse en segments
             const segments = text.split("```");
@@ -222,6 +223,7 @@ connectionBtn.addEventListener('click', () => {
         newText = "🌐 En Ligne";
     }
 
+    connexion_setting = newMode;
     // Mettre à jour l'état du bouton avant d'envoyer la requête
     connectionBtn.innerText = newText;
 
