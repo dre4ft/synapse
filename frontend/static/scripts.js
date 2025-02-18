@@ -217,7 +217,7 @@ connectionBtn.addEventListener('click', () => {
     // Si le texte du bouton est "🌐 En Ligne", passer à "Hors Ligne"
     if (connectionBtn.innerText === "🌐 En Ligne") {
         newMode = 1; // Envoie 1 pour "Hors Ligne"
-        newText = "🌐 Hors Ligne";
+        newText = "🌐❌ Hors Ligne";
     } else {
         newMode = 0; // Envoie 0 pour "En Ligne"
         newText = "🌐 En Ligne";
@@ -247,7 +247,7 @@ connectionBtn.addEventListener('click', () => {
         console.error("Erreur:", error.message);
 
         // Restaurer l'état précédent du bouton si l'API échoue
-        connectionBtn.innerText = newMode === 0 ? "🌐 En Ligne" : "🌐 Hors Ligne";
+        connectionBtn.innerText = newMode === 0 ? "🌐 En Ligne" : "🌐❌ Hors Ligne";
         
         // Optionnel : Afficher un message d'erreur à l'utilisateur
         alert("Impossible de mettre à jour le mode. Veuillez réessayer plus tard.");
