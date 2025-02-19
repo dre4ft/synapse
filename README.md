@@ -1,10 +1,6 @@
-Merci pour la précision ! Voici un README amélioré qui inclut les instructions pour exécuter **Synapse** via Docker.  
-
----
-
 # Synapse  
 
-**Synapse** is a web UI that allows you to seamlessly interact with **Ollama (local)** and **Groq (remote) APIs**. While it currently focuses on chatting, future updates will introduce full API management, model handling, and advanced features.  
+**Synapse** is a web UI build in vanilla HTML/CSS/JS that allows you to seamlessly interact with **Ollama (local)** and **Groq (remote) APIs**. While it currently focuses on chatting, future updates will introduce full API management, model handling, and advanced features.  
 
 ## 🚀 Features  
 
