@@ -1,26 +1,28 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from ollama import get_ollama_response, OllamaAPIException , list_ollama_models,update_model
+from ollama import get_ollama_response, OllamaAPIException , list_ollama_models,ollama_update_model
 import json
-from groq_api import GroqAPIException, get_groq_response , list_groq_models,update_model
+from groq_api import GroqAPIException, get_groq_response , list_groq_models,groq_update_model
 import handle_history  # Import du module d'historique
+import multitool
 
 app = FastAPI()
 
-connectionSetting = True
+connectionSetting = True # True pour Ollama, False pour Groq
 
 @app.post("/mode/")
 def change_mode(request_data: dict):
     global connectionSetting
     mode = request_data.get("mode", "")
-    
-    if mode == 1:
-        connectionSetting = False
-    elif mode == 0:
-        connectionSetting = True
-
-    return {"message": "Mode mis à jour avec succès", "new_mode": connectionSetting}
+    if multitool.can_route():
+        if mode == 1:
+            connectionSetting = False
+        elif mode == 0:
+            connectionSetting = True
+        return {"message": "Mode mis à jour avec succès", "new_mode": connectionSetting}
+    else:
+        raise HTTPException(status_code=500, detail="Impossible de se connecter à Internet.")
 
 @app.get("/models/")
 def return_models():
@@ -30,6 +32,14 @@ def return_models():
         models = list_groq_models()
     return models
 
+@app.post("/models/")
+def update_models(request_data: dict):
+    model = request_data.get("model", "")
+    if connectionSetting:
+        ollama_update_model(model)
+    else:
+        groq_update_model(model)
+    return {"message": "Modèle mis à jour avec succès", "new_model": model}
 
 
 @app.get("/")

@@ -24,7 +24,7 @@ def list_groq_models():
         # En cas d'erreur avec Groq, on lance une exception personnalisée
         raise GroqAPIException(f"Erreur avec l'API Groq : {str(e)}")
 
-def update_model(new_model : str):
+def groq_update_model(new_model : str):
     MODEL = new_model
 
 def get_groq_response(user_message: str,model_used = MODEL):

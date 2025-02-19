@@ -26,7 +26,7 @@ def list_ollama_models():
         # En cas de problème réseau ou autre erreur de requête
         raise OllamaAPIException(f"Erreur de communication avec l'API Ollama : {str(e)}")
     
-def update_model(new_model : str):
+def ollama_update_model(new_model : str):
     MODEL = new_model
 
 
