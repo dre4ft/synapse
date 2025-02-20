@@ -116,4 +116,7 @@ def get_context_for_api(user_message):
     # Ajout du message utilisateur actuel
     context_messages.append({"role": "user", "content": user_message})
 
-    return context_messages
+    # Convertir les messages en une seule chaîne de caractères
+    context_str = "\n".join([f"{msg['role']}: {msg['content']}" for msg in context_messages])
+
+    return context_str

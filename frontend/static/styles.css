@@ -1,154 +1,124 @@
-/* Styles de base */
-body {
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Courier New', Courier, monospace; /* Police de type terminal */
-    background-color: #121212; /* Fond noir plus sombre */
-    color: #e0e0e0; /* Texte gris clair */
-    display: flex;
-    height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Container principal */
-.container {
-    display: flex;
-    width: 100%;
+.connection-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #00ffcc;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
 }
 
-/* Barre latérale */
-.sidebar {
-    width: 250px;
-    background: #1c1c26; /* Fond gris foncé avec une touche de bleu-violet */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0d0d0d;
+    color: #fff;
+    overflow: hidden;
 }
 
-.sidebar h2 {
-    margin-bottom: 20px;
-    color: #d8d8d8; /* Couleur des titres en gris clair */
-}
-
-#newChat {
-    background: #5c4a77; /* Violet sombre */
-    border: none;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-family: 'Courier New', Courier, monospace; /* Police uniforme */
-}
-
-#newChat:hover {
-    background: #8a7eab; /* Violet plus clair */
-    color: #121212; /* Texte noir au survol */
-}
-
-#chatHistory {
-    list-style: none;
-    padding: 0;
-}
-
-#chatHistory li {
-    padding: 10px;
-    background: #2a2a3e; /* Gris foncé avec une touche de bleu-violet */
-    color: #e0e0e0; /* Texte gris clair */
-    margin-bottom: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace; /* Police uniforme */
-}
-
-#chatHistory li:hover {
-    background: #50fa7b;
-    color: black;
-}
-
-/* Zone de chat */
 .chat {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     padding: 20px;
-    background: #191a21;
 }
 
-/* Messages */
 .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding-bottom: 10px;
+    width: 100%;
+    max-width: 1000px;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: scroll;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
 }
 
-/* Zone d'entrée */
-.input-area {
-    display: flex;
-    background: #282a36;
+.chat-message {
+    margin-bottom: 15px;
     padding: 10px;
     border-radius: 5px;
+    background-color: rgba(0, 255, 204, 0.1);
+    color: #00ffcc;
+    font-size: 1em;
+    position: relative;
+}
+
+.chat-message::before {
+    content: '>> ';
+    color: #ff00ff;
+}
+
+.input-area {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    margin-top: 10px;
 }
 
 .input-area input {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 1em;
     border: none;
-    background: #44475a;
-    color: white;
+    outline: none;
     border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace; /* Police uniforme */
-}
-
-.input-area input:focus {
-    outline: 2px solid #50fa7b;
 }
 
 .input-area button {
-    background: #50fa7b;
+    padding: 15px;
+    font-size: 1em;
     border: none;
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    cursor: pointer;
+    background-color: #00ffcc;
+    color: #0d0d0d;
     border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace; /* Police uniforme */
-}
-
-.input-area button:hover {
-    background: #8be9fd;
+    cursor: pointer;
 }
 
 /* Style pour les blocs de code */
 .code-block {
-    background-color: #2d2d2d;
-    color: #f8f8f2;
+    background-color: #0d0d0d;
+    color: #00ffcc;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
     white-space: pre-wrap;
-    font-family: 'Courier New', Courier, monospace;
-    border: 1px solid #44475a;
+    font-family: 'Press Start 2P', cursive;
+    border: 1px solid #00ffcc;
 }
 
- /* Styles pour le menu contextuel */
- .settings-menu {
+/* Styles pour le menu contextuel */
+.settings-menu {
     position: absolute;
     bottom: calc(100% + 15px);
     right: 0;
-    background: rgba(45, 45, 45, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 8px 0;
-    width: 200px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    padding: 10px 0;
+    width: 250px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
     transition: all 0.2s ease;
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10; /* Pour être sûr que ça passe au-dessus */
 }
 
 /* Triangle pointant vers le bouton */
@@ -161,7 +131,7 @@ body {
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-top: 8px solid rgba(45, 45, 45, 0.95);
+    border-top: 8px solid rgba(0, 255, 204, 0.8);
 }
 
 .settings-menu.active {
@@ -179,19 +149,15 @@ body {
     text-align: left;
     background: none;
     border: none;
-    color: #fff;
+    color: #00ffcc;
     cursor: pointer;
-    font-size: 14px;
-    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Press Start 2P', cursive;
     transition: all 0.2s ease;
-    line-height: 1;
-    white-space: nowrap;
-    font-family: monospace;
-    letter-spacing: 0.5px;
 }
 
 .settings-menu button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 255, 204, 0.1);
 }
 
 /* Ajustement pour le conteneur du bouton settings */
@@ -199,28 +165,27 @@ body {
     position: relative;
 }
 
-/* Style pour le menu des modèles, à droite du bouton */
+/* Styles pour le menu des modèles */
 .models-menu {
     position: absolute;
     bottom: 100%;/* Positionner à la même hauteur que le bouton */
     left: 100%; /* Le menu se déplace à droite du bouton */
     margin-left: 10px; /* Un petit espace entre le bouton et le menu */
-    background: rgba(45, 45, 45, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 8px 0;
-    width: 200px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    padding: 10px 0;
+    width: 250px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
     transition: all 0.2s ease;
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
 }
 
-/* Triangle pointant vers le bouton (déplacé pour pointer vers la droite) */
+
+/* Triangle pointant vers le bouton */
 .models-menu::after {
     content: '';
     position: absolute;
@@ -230,17 +195,18 @@ body {
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-top: 8px solid rgba(45, 45, 45, 0.95);
+    border-top: 8px solid rgba(0, 255, 204, 0.8);
 }
 
-/* Rendre le menu visible lorsqu'il est actif */
+
+
+
 .models-menu.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* Rendre les boutons du menu cliquables */
 .models-menu button {
     display: flex;
     align-items: center;
@@ -250,43 +216,31 @@ body {
     text-align: left;
     background: none;
     border: none;
-    color: #fff;
+    color: #00ffcc;
     cursor: pointer;
-    font-size: 14px;
-    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Press Start 2P', cursive;
     transition: all 0.2s ease;
-    line-height: 1;
-    white-space: nowrap;
-    font-family: monospace;
-    letter-spacing: 0.5px;
 }
 
 .models-menu button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 255, 204, 0.1);
+}
+.glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 255, 204, 0.05), rgba(255, 0, 255, 0.1));
+    animation: glitch 0.5s infinite;
 }
 
-
-/* Conteneur du bouton settings pour positionner correctement le menu */
-.settings-container {
-    position: relative;
-    display: inline-block;
-}
-
-
-/* Style pour les balises de code à l'intérieur des blocs */
-.code-block code {
-    font-family: 'Courier New', Courier, monospace;
-}
-
-/* Syntax highlighting (exemple de base pour JavaScript) */
-code.js {
-    color: #f1fa8c;
-}
-
-code.py {
-    color: #ff79c6;
-}
-
-code.html {
-    color: #ffb86c;
+@keyframes glitch {
+    0% { transform: translate(1px, -1px); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, 1px); }
+    75% { transform: translate(-1px, -1px); }
+    100% { transform: translate(0, 0); }
 }

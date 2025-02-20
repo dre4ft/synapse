@@ -7,36 +7,26 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <h2>SYNAPSE</h2>
-            <button id="newChat">Nouveau Chat</button>
-            <ul id="chatHistory">
-                <li>Conversation 1</li>
-                <li>Conversation 2</li>
-                <li>Conversation 3</li>
-            </ul>
-        </aside>
-        
-        <main class="chat">
-            <div class="messages" id="messages"></div>
+    <div class="connection-status" id="ConnStat"></div>
+    <main class="chat">
+        <div class="messages" id="messages">
+            <div class="chat-message">Bienvenue dans le chat SYNPASE! Pose ta question...</div>
+        </div>
             <div class="input-area">
                 <div class="settings-container">
                     <button id="settings">⚙️</button>
                     <div class="settings-menu" id="settingsMenu">
-                        <button id="settingConnection">🌐 En Ligne</button>
-                        <button id="settingPrompt">🎨 PrePrompt</button>
-                        <button id="settingModels">🔤 Modeles</button>
-                        
+                        <button id="settingConnection">En Ligne</button>
+                        <button id="settingPrompt">PrePrompt</button>
+                        <button id="settingModels">Modeles</button>   
                     </div>
                     <div id="modelsMenu" class="models-menu"></div>
                 </div>
                 <input type="text" id="chatInput" placeholder="Écrire un message...">
                 <button id="sendMessage">➤</button>
             </div>
-        </main>
-    </div>
-
-    <script src="static/scripts.js"></script>
+        <div class="glitch"></div>
+        <script src="static/scripts.js"></script>
+    </main>
 </body>
 </html>
