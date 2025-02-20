@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import StreamingResponse, HTMLResponse
+from fastapi.responses import StreamingResponse, HTMLResponse,FileResponse
 from fastapi.staticfiles import StaticFiles
 from ollama import get_ollama_response, OllamaAPIException , list_ollama_models,ollama_update_model
 import json
@@ -24,13 +24,7 @@ def change_mode(request_data: dict):
     else:
         raise HTTPException(status_code=500, detail="Impossible de se connecter à Internet.")
 
-@app.get("/models/")
-def return_models():
-    if connectionSetting:
-        models = list_ollama_models()
-    else :
-        models = list_groq_models()
-    return models
+
 
 @app.post("/models/")
 def update_models(request_data: dict):
@@ -41,14 +35,6 @@ def update_models(request_data: dict):
         groq_update_model(model)
     return {"message": "Modèle mis à jour avec succès", "new_model": model}
 
-
-@app.get("/")
-async def serve_index():
-    try:
-        with open("frontend/index.html", "r") as f:
-            return HTMLResponse(content=f.read())
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Frontend file not found")
 
 @app.post("/chat/")
 async def chat(request_data: dict):
@@ -99,6 +85,29 @@ async def chat(request_data: dict):
             handle_history.update_history(user_message, response_stream, get_summary)
 
         return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+
+@app.get("/models/")
+def return_models():
+    if connectionSetting:
+        models = list_ollama_models()
+    else :
+        models = list_groq_models()
+    return models
+
+@app.get("/")
+async def serve_index():
+    try:
+        with open("frontend/index.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Frontend file not found")
+    
+@app.get("/static/fonts/PressStart2P.woff2")
+async def get_font():
+    return FileResponse("static/fonts/PressStart2P.woff2")
+
 
 app.mount("/static", StaticFiles(directory="/root/frontend/static", html=True), name="frontend")
 
