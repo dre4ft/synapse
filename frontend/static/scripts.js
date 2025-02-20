@@ -5,10 +5,27 @@ const messagesContainer = document.getElementById("messages");
 const newChatBtn = document.getElementById("newChat");
 const settingsBtn = document.getElementById('settings');
 const settingsMenu = document.getElementById('settingsMenu');
-const connectionBtn = document.getElementById('settingConnection')
+const connectionBtn = document.getElementById('settingConnection');
+const connstat = document.getElementById('ConnStat');
 
 let abortController = null; // Variable pour contrôler l'annulation de la requête
 let connexion_setting = 0 ; 
+
+// Fonction pour mettre à jour l'état de connexion
+function updateConnectionStatus() {
+    if (connexion_setting === 0) {
+        connstat.innerText = "Vous êtes : \n Hors Ligne";
+    } else {
+        connstat.innerText = "Vous êtes : \n En Ligne";
+    }
+}
+
+// Mettre à jour l'état de connexion au chargement de la page
+window.addEventListener("load", updateConnectionStatus);
+
+
+
+
 // Fonction pour ajouter un message dans la conversation
 function addMessage(content, isUser = false) {
     const messageElement = document.createElement("div");
@@ -248,6 +265,7 @@ connectionBtn.addEventListener('click', () => {
         // Optionnel : Afficher un message d'erreur à l'utilisateur
         alert("Impossible de mettre à jour le mode. Veuillez réessayer plus tard.");
     });
+    updateConnectionStatus();
 });
 
 
