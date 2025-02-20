@@ -104,9 +104,11 @@ async def serve_index():
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Frontend file not found")
     
-@app.get("/static/fonts/PressStart2P.woff2")
+@app.get("/static/fonts/PressStart2P-Regular.ttf")
 async def get_font():
-    return FileResponse("static/fonts/PressStart2P.woff2")
+    return FileResponse("frontend/static/fonts/PressStart2P-Regular.ttf")
+
+
 
 
 app.mount("/static", StaticFiles(directory="/root/frontend/static", html=True), name="frontend")
