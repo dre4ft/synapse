@@ -176,11 +176,7 @@ chatInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") sendMessage(); // Envoie le message avec Enter
 });
 
-// Fonction pour réinitialiser le chat
-newChatBtn.addEventListener("click", () => {
-    messagesContainer.innerHTML = ""; // Supprime tous les messages
-    sendMessageBtn.innerText = "➤"; // Réinitialise le bouton
-});
+
 
 // Fonction pour fermer le menu si on clique ailleurs
 function closeMenu(event) {
