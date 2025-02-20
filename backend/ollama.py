@@ -4,7 +4,7 @@ from fastapi import HTTPException
 
 # URL de l'API locale d'Ollama
 OLLAMA_API_URL = "http://host.docker.internal:11434/api/chat"
-MODEL = "qwen2.5-coder"
+MODEL = "qwen2.5-coder:3b"
 
 class OllamaAPIException(Exception):
     """Exception personnalisée pour les erreurs liées à l'API Ollama."""
@@ -26,17 +26,19 @@ def list_ollama_models():
         # En cas de problème réseau ou autre erreur de requête
         raise OllamaAPIException(f"Erreur de communication avec l'API Ollama : {str(e)}")
     
-def ollama_update_model(new_model : str):
-    MODEL = new_model
+# Fonction pour mettre à jour le modèle
+def ollama_update_model(new_model: str):
+    global MODEL  # Déclare que tu veux modifier la variable globale
+    MODEL = new_model  # Change la valeur de la variable globale
 
-
-def get_ollama_response(user_message: str, model_used = MODEL ):
-    """
-    Envoie une requête à l'API Ollama pour obtenir une réponse en streaming.
-    Si un problème survient, une exception personnalisée est levée.
-    """
+# Fonction pour obtenir la réponse de l'API Ollama
+def get_ollama_response(user_message: str, model_used=None):
     if not user_message:
         raise OllamaAPIException("Le message ne peut pas être vide.")
+
+    # Si aucun modèle n'est spécifié, utilise le modèle global
+    if model_used is None:
+        model_used = MODEL
 
     # Construction du message au format Ollama
     data = {
